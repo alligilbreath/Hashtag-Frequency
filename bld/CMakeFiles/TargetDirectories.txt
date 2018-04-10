@@ -1,0 +1,3 @@
+/Users/alligilbreath/Desktop/project8/project_8_example/bld/CMakeFiles/trending.dir
+/Users/alligilbreath/Desktop/project8/project_8_example/bld/CMakeFiles/ALL_BUILD.dir
+/Users/alligilbreath/Desktop/project8/project_8_example/bld/CMakeFiles/ZERO_CHECK.dir
