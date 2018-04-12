@@ -32,6 +32,7 @@ void Trending::ReadStartHashtag(){
     ifstream hashtagStream {_startHashtagFilePath};
     std::string hashtagInfo;
     char currentChar;
+    bool duplicate = false;
     
     if(!hashtagStream.is_open()){
         return;
@@ -53,7 +54,7 @@ void Trending::ReadStartHashtag(){
             
             if(hashtagInfo != ""){
                 
-                bool duplicate = false;
+                duplicate = false;
                 
                 for(unsigned int j = 0; j < _hashtags.size(); j++){
                     
@@ -110,6 +111,7 @@ void Trending::ReadEndHashtag(){
     ifstream hashtagStream {_endHashtagFilePath};
     string hashtagInfo;
     char currentChar;
+    bool duplicate = false;
     
     if(!hashtagStream.is_open()){
         return;
@@ -131,7 +133,7 @@ void Trending::ReadEndHashtag(){
             
             if(hashtagInfo != ""){
                 
-                bool duplicate = false;
+                duplicate = false;
                 
                 for(unsigned int j = 0; j < _hashtags.size(); j++){
                     
