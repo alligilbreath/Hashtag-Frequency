@@ -88,3 +88,11 @@ void Trending::ReadStartHashtag()
     
     
 }
+
+void Trending::ReadEndHashtag(){
+
+}
+
+void Trending::WriteHashtag(){
+}
+}
