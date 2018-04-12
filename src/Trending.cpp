@@ -31,8 +31,6 @@ void Trending::ReadStartHashtag(){
     
     ifstream hashtagStream {_startHashtagFilePath};
     std::string hashtagInfo;
-    char currentChar;
-    bool duplicate = false;
     
     if(!hashtagStream.is_open()){
         return;
@@ -42,7 +40,7 @@ void Trending::ReadStartHashtag(){
     
     for(unsigned int i = 0; i < inputString.length(); i++){
         
-        currentChar = inputString[i];
+        char currentChar = inputString[i];
         
         if(currentChar != '\r' && currentChar != '\n' && currentChar != ' ' && currentChar != '\t'){
             
@@ -54,6 +52,8 @@ void Trending::ReadStartHashtag(){
             
             if(hashtagInfo != ""){
                 
+                bool duplicate = false;
+                
                 for(unsigned int j = 0; j < _hashtags.size(); j++){
                     
                     _hashtags[j];
@@ -64,7 +64,7 @@ void Trending::ReadStartHashtag(){
                         
                         _hashtags[j].SetStartCount(_hashtags[j].GetStartCount() + 1);
                         
-                        hashtagInfo.clear();
+                        hashtagInfo = "";
                     }
                 }
                 if(duplicate == false){
@@ -72,7 +72,7 @@ void Trending::ReadStartHashtag(){
                     _hashtags.push_back(Hashtag(hashtagInfo));
                     _hashtags.back().SetStartCount(1);
                     
-                    hashtagInfo.clear();
+                    hashtagInfo = "";
                 }
             }
         }
@@ -96,8 +96,7 @@ void Trending::ReadStartHashtag(){
             
         }
         else {
-            _hashtags[i].SetStartRank(currentRank);
-            currentRank++;
+            _hashtags[i].SetStartRank(currentRank); currentRank++;
             
         }
         previoushashtag = _hashtags[i];
@@ -109,11 +108,8 @@ void Trending::ReadEndHashtag(){
     
     ifstream hashtagStream {_endHashtagFilePath};
     string hashtagInfo;
-    char currentChar;
-    bool duplicate = false;
     
     if(!hashtagStream.is_open()){
-        cout << "Could not open " << _endHashtagFilePath << endl;
         return;
     }
     
@@ -121,7 +117,7 @@ void Trending::ReadEndHashtag(){
     
     for(unsigned int i = 0; i < inputString.length(); i++){
         
-        currentChar = inputString[i];
+        char currentChar = inputString[i];
         
         if(currentChar != '\r' && currentChar != '\n' && currentChar != ' ' && currentChar != '\t'){
             
@@ -133,7 +129,11 @@ void Trending::ReadEndHashtag(){
             
             if(hashtagInfo != ""){
                 
+                bool duplicate = false;
+                
                 for(unsigned int j = 0; j < _hashtags.size(); j++){
+                    
+                    _hashtags[j];
                     
                     if(hashtagInfo == _hashtags[j].GetContent()){
                         
@@ -141,7 +141,7 @@ void Trending::ReadEndHashtag(){
                         
                         _hashtags[j].SetEndCount(_hashtags[j].GetEndCount() + 1);
                         
-                        hashtagInfo.clear();
+                        hashtagInfo = "";
                     }
                 }
                 if(duplicate == false){
@@ -149,7 +149,7 @@ void Trending::ReadEndHashtag(){
                     _hashtags.push_back(Hashtag(hashtagInfo));
                     _hashtags.back().SetEndCount(1);
 
-                    hashtagInfo.clear();
+                    hashtagInfo = "";
                 }
             }
         }
@@ -181,8 +181,7 @@ void Trending::ReadEndHashtag(){
             
         }
         else {
-            _hashtags[i].SetEndRank(currentRank);
-            currentRank++;
+            _hashtags[i].SetEndRank(currentRank); currentRank++;
             
         }
         previoushashtag = _hashtags[i];
@@ -192,12 +191,12 @@ void Trending::ReadEndHashtag(){
 
 void Trending::WriteHashtag(){
     
-    ofstream myOutputHashtag;
-    myOutputHashtag.open(_outputHashtagFilePath);
+    ofstream myOutputhashtag;
+    myOutputhashtag.open(_outputHashtagFilePath);
     
     
-    if(!myOutputHashtag.is_open()){
-        cout << "Could not open " << _outputHashtagFilePath << endl;
+    if(!myOutputhashtag.is_open()){
+        cout << "file failed to open" << endl;
         return;
     }
     
@@ -207,38 +206,38 @@ void Trending::WriteHashtag(){
             
             if((k != 0 && _hashtags[k].GetEndRank() == _hashtags[k - 1].GetEndRank())|| (k != _hashtags.size() - 1 && _hashtags[k + 1].GetEndRank() == _hashtags[k].GetEndRank())){
                 
-                myOutputHashtag << "T";
+                myOutputhashtag << "T";
             }
             
-            myOutputHashtag << _hashtags[k].GetEndRank() << ": " << _hashtags[k].GetContent() << " (" ;
+            myOutputhashtag << _hashtags[k].GetEndRank() << ": " << _hashtags[k].GetContent() << " (" ;
             
             int changeInRank = _hashtags[k].GetStartRank() - _hashtags[k].GetEndRank();
             
             if(changeInRank >= 0){
-                myOutputHashtag << "+";
+                myOutputhashtag << "+";
             }
             
             if(_hashtags[k].GetStartCount() == 0){
-                myOutputHashtag << "new";
+                myOutputhashtag << "new";
             }
             else{
-                myOutputHashtag << changeInRank;
+                myOutputhashtag << changeInRank;
             }
-            myOutputHashtag << ")" << endl;
+            myOutputhashtag << ")" << endl;
         }
         
     }
-    myOutputHashtag.close();
+    myOutputhashtag.close();
 }
 
 
-string Trending::lowerCaseConversion(string line){
+string Trending::lowerCaseConversion(string conversion){
     
-    for(unsigned int k = 0; k < line.length(); k++){
+    for(unsigned int k = 0; k < conversion.length(); k++){
         
-        line[k] = tolower(line[k]);
+        conversion[k] = tolower(conversion[k]);
         
     }
-    return line;
+    return conversion;
 }
 
