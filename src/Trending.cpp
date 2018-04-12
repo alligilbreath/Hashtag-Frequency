@@ -238,7 +238,7 @@ string Trending::lowerCaseConversion(string currentLine){
     
     for(unsigned int i = 0; i < currentLine.length(); i++){
         
-        currentLine[k] = tolower(currentLine[k]);
+        currentLine[i] = tolower(currentLine[i]);
         
     }
     return currentLine;
