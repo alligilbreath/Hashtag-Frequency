@@ -90,9 +90,11 @@ void Trending::ReadStartHashtag()
 }
 
 void Trending::ReadEndHashtag(){
+    return;
 
 }
 
 void Trending::WriteHashtag(){
+    return;
 
 }
