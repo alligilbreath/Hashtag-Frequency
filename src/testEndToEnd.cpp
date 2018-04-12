@@ -36,6 +36,16 @@ int EndToEndTester::TestFile(int testNum){
     stringstream myOutputPath;
     myOutputPath << TEST_FILE_RELATIVE_PATH << "/myOutput" << testNum << ".txt";
     
+    //Create trending object
+    Trending myTrend(startHashtagsPath.str(), endHashtagsPath.str(), myOutputPath.str());
+    
+    
+    //Read start of hashtags
+    myTrend.ReadStartHashTag();
+    
+    //Write the hashtag to the file
+    myTrend.WriteHashTag();
+    
     
     ifstream myOutputStream;
     ifstream outputStream;
