@@ -31,6 +31,7 @@ void Trending::ReadStartHashtag(){
     
     ifstream hashtagStream {_startHashtagFilePath};
     std::string hashtagInfo;
+    char currentChar;
     
     if(!hashtagStream.is_open()){
         return;
@@ -40,7 +41,7 @@ void Trending::ReadStartHashtag(){
     
     for(unsigned int i = 0; i < inputString.length(); i++){
         
-        char currentChar = inputString[i];
+        currentChar = inputString[i];
         
         if(currentChar != '\r' && currentChar != '\n' && currentChar != ' ' && currentChar != '\t'){
             
@@ -108,6 +109,7 @@ void Trending::ReadEndHashtag(){
     
     ifstream hashtagStream {_endHashtagFilePath};
     string hashtagInfo;
+    char currentChar;
     
     if(!hashtagStream.is_open()){
         return;
@@ -117,7 +119,7 @@ void Trending::ReadEndHashtag(){
     
     for(unsigned int i = 0; i < inputString.length(); i++){
         
-        char currentChar = inputString[i];
+        currentChar = inputString[i];
         
         if(currentChar != '\r' && currentChar != '\n' && currentChar != ' ' && currentChar != '\t'){
             
@@ -133,7 +135,6 @@ void Trending::ReadEndHashtag(){
                 
                 for(unsigned int j = 0; j < _hashtags.size(); j++){
                     
-                    _hashtags[j];
                     
                     if(hashtagInfo == _hashtags[j].GetContent()){
                         
