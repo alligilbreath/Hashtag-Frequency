@@ -20,6 +20,18 @@ private:
     unsigned int _endRank;            // Rank in end file
     
 public:
+    Hashtag(std::string content);
+    std::string GetContent();
+    bool operator <(const Hashtag& rhs) const;
+    unsigned int GetStartCount();
+    unsigned int GetStartRank();
+    unsigned int GetEndCount();
+    unsigned int GetEndRank();
+    void SetStartCount(int newStartCount);
+    void SetStartRank(int newStartRank);
+    void SetEndCount(int newEndCount);
+    void SetEndRank(int newEndRank);
+    
 };
 
 //--------------------------------------------------------------------------------------

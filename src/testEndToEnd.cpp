@@ -41,10 +41,10 @@ int EndToEndTester::TestFile(int testNum){
     
     
     //Read start of hashtags
-    myTrend.ReadStartHashTag();
+   // myTrend.ReadStartHashtag();
     
     //Write the hashtag to the file
-    myTrend.WriteHashTag();
+ //   myTrend.WriteHashTag();
     
     
     ifstream myOutputStream;
