@@ -66,7 +66,7 @@ void Trending::ReadStartHashtag(){
                         
                         _hashtags[j].SetStartCount(_hashtags[j].GetStartCount() + 1);
                         
-                        hashtagInfo = "";
+                        hashtagInfo.clear();
                     }
                 }
                 if(duplicate == false){
@@ -74,7 +74,7 @@ void Trending::ReadStartHashtag(){
                     _hashtags.push_back(Hashtag(hashtagInfo));
                     _hashtags.back().SetStartCount(1);
                     
-                    hashtagInfo = "";
+                    hashtagInfo.clear();
                 }
             }
         }
@@ -144,7 +144,7 @@ void Trending::ReadEndHashtag(){
                         
                         _hashtags[j].SetEndCount(_hashtags[j].GetEndCount() + 1);
                         
-                        hashtagInfo = "";
+                        hashtagInfo.clear();
                     }
                 }
                 if(duplicate == false){
@@ -152,7 +152,7 @@ void Trending::ReadEndHashtag(){
                     _hashtags.push_back(Hashtag(hashtagInfo));
                     _hashtags.back().SetEndCount(1);
 
-                    hashtagInfo = "";
+                    hashtagInfo.clear();
                 }
             }
         }
