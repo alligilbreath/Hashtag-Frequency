@@ -82,7 +82,25 @@ void Trending::ReadStartHashtag()
     {
         return;
     }
-    //
+    Hashtag prevHash = _hashtags[0];
+    
+    int currentRank = 1;
+    
+    for (unsigned int i = 0; i < _hashtags.size(); i++) {
+        
+        if (i != 0 && _hashtags[i].GetStartCount() == prevHash.GetStartCount()){
+            
+            _hashtags[i].SetStartRank(prevHash.GetStartRank());
+            
+        }
+        else {
+            _hashtags[i].SetStartRank(currentRank);
+            currentRank++;
+            
+        }
+        prevHash = _hashtags[i];
+        
+    }
     
    // } //end of while loop
     
