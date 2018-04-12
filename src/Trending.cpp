@@ -158,11 +158,11 @@ void Trending::ReadEndHashtag(){
         }
     }
     
-    for(unsigned int g = 0; g < _hashtags.size() ; g++){
+    for(unsigned int k = 0; k < _hashtags.size() ; k++){
         
-        if(_hashtags[g].GetEndCount() == 0){
+        if(_hashtags[k].GetEndCount() == 0){
             
-            _hashtags.erase(_hashtags.begin() + g);
+            _hashtags.erase(_hashtags.begin() + k);
         }
     }
     
@@ -203,24 +203,24 @@ void Trending::WriteHashtag(){
         return;
     }
     
-    for(unsigned int k = 0; k < _hashtags.size(); k++){
+    for(unsigned int i = 0; i < _hashtags.size(); i++){
         
-        if(_hashtags[k].GetEndCount() != 0){
+        if(_hashtags[i].GetEndCount() != 0){
             
-            if((k != 0 && _hashtags[k].GetEndRank() == _hashtags[k - 1].GetEndRank())|| (k != _hashtags.size() - 1 && _hashtags[k + 1].GetEndRank() == _hashtags[k].GetEndRank())){
+            if((i != 0 && _hashtags[i].GetEndRank() == _hashtags[i - 1].GetEndRank()) || (i != _hashtags.size() - 1 && _hashtags[i + 1].GetEndRank() == _hashtags[i].GetEndRank())){
                 
                 myOutputhashtag << "T";
             }
             
-            myOutputhashtag << _hashtags[k].GetEndRank() << ": " << _hashtags[k].GetContent() << " (" ;
+            myOutputhashtag << _hashtags[i].GetEndRank() << ": " << _hashtags[i].GetContent() << " (" ;
             
-            int changeInRank = _hashtags[k].GetStartRank() - _hashtags[k].GetEndRank();
+            int changeInRank = _hashtags[i].GetStartRank() - _hashtags[i].GetEndRank();
             
             if(changeInRank >= 0){
                 myOutputhashtag << "+";
             }
             
-            if(_hashtags[k].GetStartCount() == 0){
+            if(_hashtags[i].GetStartCount() == 0){
                 myOutputhashtag << "new";
             }
             else{
@@ -234,13 +234,13 @@ void Trending::WriteHashtag(){
 }
 
 
-string Trending::lowerCaseConversion(string conversion){
+string Trending::lowerCaseConversion(string currentLine){
     
-    for(unsigned int k = 0; k < conversion.length(); k++){
+    for(unsigned int i = 0; i < currentLine.length(); i++){
         
-        conversion[k] = tolower(conversion[k]);
+        currentLine[k] = tolower(currentLine[k]);
         
     }
-    return conversion;
+    return currentLine;
 }
 
