@@ -15,10 +15,10 @@
 
 using namespace std;
 
-Trending::Trending(std::string startHashtagFilePath, std::string endHashtagFilePath, std::string outputHashtagFilePath){
-    this->_startHashtagFilePath = startHashtagFilePath;
-    this->_endHashtagFilePath = endHashtagFilePath;
-    this->_outputHashtagFilePath = outputHashtagFilePath;
+Trending::Trending(std::string starthashtagFilePath, std::string endhashtagFilePath, std::string outputhashtagFilePath){
+    _startHashtagFilePath = starthashtagFilePath;
+    _endHashtagFilePath = endhashtagFilePath;
+    _outputHashtagFilePath = outputhashtagFilePath;
 }
 
 void Trending::Run(){
@@ -29,149 +29,132 @@ void Trending::Run(){
 
 void Trending::ReadStartHashtag(){
     
-    ifstream hashTagStream {_startHashtagFilePath};
-    string hashTag;
+    ifstream hashtagStream {_startHashtagFilePath};
+    std::string hashtagInfo;
+    char currentChar;
+    bool duplicate = false;
     
-    if(!hashTagStream.is_open()){
+    if(!hashtagStream.is_open()){
         return;
     }
     
-    string inputString {istreambuf_iterator<char>(hashTagStream),istreambuf_iterator<char>()};
+    std::string inputString {istreambuf_iterator<char>(hashtagStream),istreambuf_iterator<char>()};
     
     for(unsigned int i = 0; i < inputString.length(); i++){
         
-        // creating a test character for the for loop to iterate
-        char testChar = inputString[i];
+        currentChar = inputString[i];
         
-        // test condition for character to not be \r, \n, \t, or whitespace
-        if(testChar != '\r' && testChar != '\n' && testChar != ' ' && testChar != '\t'){
+        if(currentChar != '\r' && currentChar != '\n' && currentChar != ' ' && currentChar != '\t'){
             
-            // adding character onto string
-            hashTag += testChar;
+            hashtagInfo += currentChar;
         }
         else{
             
-            hashTag = lowerCaseConversion(hashTag);
+            hashtagInfo = lowerCaseConversion(hashtagInfo);
             
-            // while iterating to next set of words, testing for whitespace
-            if(hashTag != ""){
-                
-                bool duplicate = false;
+            if(hashtagInfo != ""){
                 
                 for(unsigned int j = 0; j < _hashtags.size(); j++){
                     
                     _hashtags[j];
                     
-                    if(hashTag == _hashtags[j].GetContent()){
+                    if(hashtagInfo == _hashtags[j].GetContent()){
                         
                         duplicate = true;
                         
-                        // incrementing the count of hashtag
                         _hashtags[j].SetStartCount(_hashtags[j].GetStartCount() + 1);
                         
-                        hashTag = "";
+                        hashtagInfo.clear();
                     }
                 }
                 if(duplicate == false){
                     
-                    // adding string onto vector
-                    _hashtags.push_back(Hashtag(hashTag));
+                    _hashtags.push_back(Hashtag(hashtagInfo));
                     _hashtags.back().SetStartCount(1);
                     
-                    // setting string back to blank
-                    hashTag = "";
+                    hashtagInfo.clear();
                 }
             }
         }
     }
     
-    // after overloading the sort operator, calling it to sort hashtag vector
     std::sort(_hashtags.begin(), _hashtags.end());
     
     if(_hashtags.size() == 0){
         return;
     }
     
-    // setting the first hastag to 1 so it go through the for loop
-    Hashtag previousHashtag = _hashtags[0];
+    Hashtag previoushashtag = _hashtags[0];
     
     int currentRank = 1;
     
     for (unsigned int i = 0; i < _hashtags.size(); i++) {
         
-        if (i != 0 && _hashtags[i].GetStartCount() == previousHashtag.GetStartCount()){
+        if (i != 0 && _hashtags[i].GetStartCount() == previoushashtag.GetStartCount()){
             
-            _hashtags[i].SetStartRank(previousHashtag.GetStartRank());
+            _hashtags[i].SetStartRank(previoushashtag.GetStartRank());
             
         }
         else {
-            _hashtags[i].SetStartRank(currentRank); currentRank++;
+            _hashtags[i].SetStartRank(currentRank);
+            currentRank++;
             
         }
-        previousHashtag = _hashtags[i];
+        previoushashtag = _hashtags[i];
         
     }
 }
 
 void Trending::ReadEndHashtag(){
     
-    ifstream hashTagStream {_endHashtagFilePath};
-    string hashTag;
+    ifstream hashtagStream {_endHashtagFilePath};
+    string hashtagInfo;
+    char currentChar;
+    bool duplicate = false;
     
-    if(!hashTagStream.is_open()){
+    if(!hashtagStream.is_open()){
+        cout << "Could not open " << _endHashtagFilePath << endl;
         return;
     }
     
-    string inputString {istreambuf_iterator<char>(hashTagStream),istreambuf_iterator<char>()};
+    string inputString {istreambuf_iterator<char>(hashtagStream),istreambuf_iterator<char>()};
     
     for(unsigned int i = 0; i < inputString.length(); i++){
         
-        // creating a test character for the for loop to iterate
-        char testChar = inputString[i];
+        currentChar = inputString[i];
         
-        // test condition for character to not be \r, \n, \t, or whitespace
-        if(testChar != '\r' && testChar != '\n' && testChar != ' ' && testChar != '\t'){
+        if(currentChar != '\r' && currentChar != '\n' && currentChar != ' ' && currentChar != '\t'){
             
-            // adding character onto string
-            hashTag += testChar;
+            hashtagInfo += currentChar;
         }
         else{
             
-            hashTag = lowerCaseConversion(hashTag);
+            hashtagInfo = lowerCaseConversion(hashtagInfo);
             
-            // while iterating to next set of words, testing for whitespace
-            if(hashTag != ""){
-                
-                bool duplicate = false;
+            if(hashtagInfo != ""){
                 
                 for(unsigned int j = 0; j < _hashtags.size(); j++){
                     
-                    _hashtags[j];
-                    
-                    if(hashTag == _hashtags[j].GetContent()){
+                    if(hashtagInfo == _hashtags[j].GetContent()){
                         
                         duplicate = true;
                         
-                        // incrementing the count of hashtag
                         _hashtags[j].SetEndCount(_hashtags[j].GetEndCount() + 1);
                         
-                        hashTag = "";
+                        hashtagInfo.clear();
                     }
                 }
                 if(duplicate == false){
                     
-                    // adding string onto vector
-                    _hashtags.push_back(Hashtag(hashTag));
+                    _hashtags.push_back(Hashtag(hashtagInfo));
                     _hashtags.back().SetEndCount(1);
-                    
-                    // setting string back to blank
-                    hashTag = "";
+
+                    hashtagInfo.clear();
                 }
             }
         }
     }
     
-    // for loop to erase any hashtag that doesn't exist
     for(unsigned int g = 0; g < _hashtags.size() ; g++){
         
         if(_hashtags[g].GetEndCount() == 0){
@@ -186,36 +169,35 @@ void Trending::ReadEndHashtag(){
         return;
     }
     
-    Hashtag previousHashtag = _hashtags[0];
+    Hashtag previoushashtag = _hashtags[0];
     
     int currentRank = 1;
     
-    // for loop to set rank
     for (unsigned int i = 0; i < _hashtags.size(); i++) {
         
-        if (i != 0 && _hashtags[i].GetEndCount() == previousHashtag.GetEndCount()){
+        if (i != 0 && _hashtags[i].GetEndCount() == previoushashtag.GetEndCount()){
             
-            _hashtags[i].SetEndRank(previousHashtag.GetEndRank());
+            _hashtags[i].SetEndRank(previoushashtag.GetEndRank());
             
         }
         else {
-            _hashtags[i].SetEndRank(currentRank); currentRank++;
+            _hashtags[i].SetEndRank(currentRank);
+            currentRank++;
             
         }
-        previousHashtag = _hashtags[i];
+        previoushashtag = _hashtags[i];
         
     }
 }
 
 void Trending::WriteHashtag(){
     
-    // create file stream to write
     ofstream myOutputHashtag;
     myOutputHashtag.open(_outputHashtagFilePath);
     
     
     if(!myOutputHashtag.is_open()){
-        cout << "file failed to open" << endl;
+        cout << "Could not open " << _outputHashtagFilePath << endl;
         return;
     }
     
@@ -250,13 +232,13 @@ void Trending::WriteHashtag(){
 }
 
 
-string Trending::lowerCaseConversion(string conversion){
+string Trending::lowerCaseConversion(string line){
     
-    for(unsigned int k = 0; k < conversion.length(); k++){
+    for(unsigned int k = 0; k < line.length(); k++){
         
-        conversion[k] = tolower(conversion[k]);
+        line[k] = tolower(line[k]);
         
     }
-    return conversion;
+    return line;
 }
 
