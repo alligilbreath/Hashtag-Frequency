@@ -194,11 +194,11 @@ void Trending::ReadEndHashtag(){
 
 void Trending::WriteHashtag(){
     
-    ofstream myOutputhashtag;
-    myOutputhashtag.open(_outputHashtagFilePath);
+    ofstream myOutputHashtag;
+    myOutputHashtag.open(_outputHashtagFilePath);
     
     
-    if(!myOutputhashtag.is_open()){
+    if(!myOutputHashtag.is_open()){
         cout << "file failed to open" << endl;
         return;
     }
@@ -209,28 +209,28 @@ void Trending::WriteHashtag(){
             
             if((i != 0 && _hashtags[i].GetEndRank() == _hashtags[i - 1].GetEndRank()) || (i != _hashtags.size() - 1 && _hashtags[i + 1].GetEndRank() == _hashtags[i].GetEndRank())){
                 
-                myOutputhashtag << "T";
+                myOutputHashtag << "T";
             }
             
-            myOutputhashtag << _hashtags[i].GetEndRank() << ": " << _hashtags[i].GetContent() << " (" ;
+            myOutputHashtag << _hashtags[i].GetEndRank() << ": " << _hashtags[i].GetContent() << " (" ;
             
             int changeInRank = _hashtags[i].GetStartRank() - _hashtags[i].GetEndRank();
             
             if(changeInRank >= 0){
-                myOutputhashtag << "+";
+                myOutputHashtag << "+";
             }
             
             if(_hashtags[i].GetStartCount() == 0){
-                myOutputhashtag << "new";
+                myOutputHashtag << "new";
             }
             else{
-                myOutputhashtag << changeInRank;
+                myOutputHashtag << changeInRank;
             }
-            myOutputhashtag << ")" << endl;
+            myOutputHashtag << ")" << endl;
         }
         
     }
-    myOutputhashtag.close();
+    myOutputHashtag.close();
 }
 
 
