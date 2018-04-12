@@ -94,5 +94,5 @@ void Trending::ReadEndHashtag(){
 }
 
 void Trending::WriteHashtag(){
-}
+
 }
