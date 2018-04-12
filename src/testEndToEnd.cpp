@@ -8,6 +8,7 @@
 #include "testEndToEnd.h"
 #include "Trending.h"
 #include <algorithm>
+#include <string>
 
 using namespace std;
 
@@ -41,15 +42,46 @@ int EndToEndTester::TestFile(int testNum){
     
     
     //Read start of hashtags
-   // myTrend.ReadStartHashtag();
+    myTrend.ReadStartHashtag();
     
     //Write the hashtag to the file
- //   myTrend.WriteHashTag();
+    myTrend.WriteHashtag();
     
     
     ifstream myOutputStream;
+    myOutputStream.open(myOutputPath.str());
     ifstream outputStream;
+    outputStream.open(outputPath.str());
     
+    if(!outputStream.is_open())
+    {
+        cout << "Could not open file " << outputPath.str() << endl;
+        return false;
+    }
+    if(!myOutputStream.is_open())
+    {
+        cout << "Could not open file " << myOutputPath.str() << endl;
+        return false;
+    }
+    
+    std::string outputString;
+    std::string myOutputString;
+    
+    while(!outputStream.eof())
+    {
+        getline(outputPath, outputString);
+        getline(myOutputPath, myOutputString);
+        
+        if(outputString.compare(myOutputString)!= 0)
+        {
+            outputStream.close();
+            myOutputStream.close();
+            return false;
+        }
+    }
+    
+    outputStream.close();
+    myOutputStream.close();
   
-    return false;
+    return true;
 }
