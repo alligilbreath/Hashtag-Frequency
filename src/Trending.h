@@ -23,5 +23,9 @@ private:
 public:
     Trending(std::string startHashtagFilePath, std::string endHashtagFilePath, std::string outputHashtagFilePath);
     void Run();
+    void ReadStartHashtag();
+    void ReadEndHashtag();
+    void WriteHashtag();
+    std::string lowerCaseConversion(std::string content);
 };
 #endif /* Trending_hpp */

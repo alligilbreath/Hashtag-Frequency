@@ -14,11 +14,11 @@ using namespace std;
 
 Hashtag::Hashtag(std::string content)
 {
-    this->_startCount = 0;
-    this->_endCount = 0;
-    this->_startRank = 0;
-    this->_endRank = 0;
-    this->_content = content;
+    _startCount = 0;
+    _endCount = 0;
+    _startRank = 0;
+    _endRank = 0;
+    _content = content;
 }
 std::string Hashtag::GetContent(){ return _content;}
 //bool operator <(const Hashtag& rhs) const;
